@@ -1,0 +1,10 @@
+.DS_Store
+*.log
+secrets/
+private/
+*.jks
+*.keystore
+*.p12
+*.pem
+*.json
+
