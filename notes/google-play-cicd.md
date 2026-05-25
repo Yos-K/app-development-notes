@@ -236,6 +236,131 @@ flowchart TD
 アップロードしない実行でも artifact を残す。
 これにより、署名済み AAB の生成と Play Console API の問題を分けられる。
 
+## テストピラミッドと CI/CD
+
+CI/CD の目的は「全部を毎回重く確認すること」ではない。
+テストピラミッドに合わせて、速い確認を下層に、実機に近い確認を上層に置く。
+
+```mermaid
+flowchart TB
+    Manual[手動の実機確認]
+    Device[エミュレータ smoke test]
+    Build[Gradle build / lint / release bundle]
+    Unit[Unit test / domain test / test smell check]
+
+    Unit --> Build
+    Build --> Device
+    Device --> Manual
+```
+
+ローカルでは、速く失敗するものを確認する。
+
+| 場所 | 確認すること | 理由 |
+| --- | --- | --- |
+| ローカル | unit test | 変更直後に壊れたことを知る |
+| ローカル | test smell check | テスト自体の劣化を早く止める |
+| ローカル | debug build | コンパイル破壊を早く見つける |
+| CI | Gradle unit test | Gradle 経路でもテストできることを保証する |
+| CI | Android lint | Android 固有の API 誤用を検出する |
+| CI | debug APK / release AAB build | 配布物を作れることを確認する |
+| 手動 CI | emulator smoke test | 実機に近い起動確認を重すぎない範囲で行う |
+
+Termux のようなローカル環境では、Android SDK や Gradle の license 状態に左右される。
+そのため、ローカルは速い手書きスクリプトを残し、CI では Gradle 経路も検証する二段構えにするとよい。
+
+```mermaid
+flowchart LR
+    Local[Termux local] --> Script[fast script test]
+    PR[Pull request] --> CI[GitHub Actions]
+    CI --> ScriptCI[script build]
+    CI --> GradleCI[Gradle build / lint]
+    Manual[workflow_dispatch] --> Emulator[Android emulator smoke]
+```
+
+## Gradle 移行は段階的に行う
+
+手書きビルドから Gradle へ移る場合、いきなりリリース経路を置き換えない。
+まず CI 上で Gradle build を並走させ、成果物を作れることを確認する。
+
+```mermaid
+flowchart TD
+    Script[既存スクリプト build] --> Stable[既存リリース継続]
+    Gradle[Gradle build] --> Debug[debug APK]
+    Gradle --> Bundle[release AAB artifact]
+    Bundle --> Compare[既存 AAB と比較]
+    Compare --> Switch[Play upload を Gradle へ切り替え]
+```
+
+移行中は、Gradle 生成 AAB を artifact として保存するだけにしておく。
+Play Console への upload は、署名、package name、versionCode、assets、feature flag を確認してから切り替える。
+
+## GitHub Actions で実機に近い確認をする
+
+GitHub Actions では Android Emulator を起動できる。
+ただし重く、揺れやすいため、毎 push ではなく手動実行やリリース前確認に向いている。
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant GH as GitHub Actions
+    participant Emulator as Android Emulator
+    participant App as App
+
+    Dev->>GH: workflow_dispatch
+    GH->>GH: debug APK をビルド
+    GH->>Emulator: AVD を起動
+    GH->>Emulator: APK を install
+    GH->>App: am start
+    App-->>GH: process 起動を確認
+```
+
+最初の smoke test は、凝った UI 検証よりも「インストールできる」「起動できる」を見る。
+ここが安定してから、Intent でファイルを開く、共有から開く、スクリーンショットを保存する、といった確認を増やす。
+
+## main ブランチ保護
+
+公開リポジトリでは、`main` へ直接 push できる状態にしておくと、意図しない Actions 実行や未検証 commit の混入が起こりやすい。
+
+```mermaid
+flowchart TD
+    Work[feature branch] --> PR[Pull request]
+    PR --> Checks{required checks}
+    Checks -->|pass| Merge[merge to main]
+    Checks -->|fail| Fix[修正]
+    Fix --> PR
+    Direct[direct push to main] --> Block[blocked]
+```
+
+保護の基本は次の組み合わせにする。
+
+| 保護 | 狙い |
+| --- | --- |
+| required status checks | `test` や `gradle-build` が通った commit だけ入れる |
+| strict status checks | base branch 最新化を要求する |
+| non-fast-forward 禁止 | 履歴の破壊を防ぐ |
+| deletion 禁止 | main の削除を防ぐ |
+| conversation resolution | 未解決レビューを残した merge を防ぐ |
+
+solo 開発では、required approval を強くしすぎると自分の PR を自分で approve できず詰まることがある。
+その場合は、レビュー承認ではなく required checks と conversation resolution を機械的な防御にする。
+
+## PR 補助スクリプト
+
+保護ブランチを入れたら、人間が毎回手順を思い出す運用にしない。
+作業開始と PR 作成をスクリプト化する。
+
+```mermaid
+flowchart LR
+    Start[start-work.sh] --> Branch[feature branch]
+    Branch --> Change[実装]
+    Change --> Test[local test]
+    Test --> Open[open-pr.sh]
+    Open --> PR[Pull request]
+```
+
+PR title は Conventional Commits に合わせる。
+ただし、`feat(scope): ...` や `feat!: ...` も正当な形式なので、補助スクリプトで誤って拒否しない。
+
 ## versionCode の扱い
 
 Play Console に commit 済みの `versionCode` は再利用できない。
