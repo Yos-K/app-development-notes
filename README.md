@@ -223,4 +223,5 @@ flowchart TD
 
 - [Google Play CI/CD で学んだこと](notes/google-play-cicd.md)
 - [モバイル Markdown リーダーで学んだこと](notes/mobile-markdown-reader.md)
+- [性質ベーステスト (PBT) で学んだこと](notes/property-based-testing.md)
 
