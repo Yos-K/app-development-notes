@@ -226,5 +226,6 @@ flowchart TD
 - [性質ベーステスト (PBT) で学んだこと](notes/property-based-testing.md)
 - [ミューテーションテストで学んだこと](notes/mutation-testing.md)
 - [ハーネスエンジニアリングで学んだこと](notes/harness-engineering.md)
+- [ハーネスへの投資をどう考えるか](notes/harness-investment.md)
 - [AGENTS.md にハーネスとして何を書くべきか](notes/agents-md-as-harness.md)
 
