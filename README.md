@@ -227,5 +227,6 @@ flowchart TD
 - [ミューテーションテストで学んだこと](notes/mutation-testing.md)
 - [ハーネスエンジニアリングで学んだこと](notes/harness-engineering.md)
 - [ハーネスへの投資をどう考えるか](notes/harness-investment.md)
+- [ハーネス層の有効性評価とライフサイクル](notes/harness-effectiveness-review.md)
 - [AGENTS.md にハーネスとして何を書くべきか](notes/agents-md-as-harness.md)
 
