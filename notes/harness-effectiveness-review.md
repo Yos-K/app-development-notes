@@ -118,4 +118,4 @@ flowchart TD
 
 各ハーネス層を定期的に評価し、効いていない高コスト層は撤去を提案し、効いている予防型は発火ゼロでも残す。判断の鍵は、**検知型と予防型を取り違えないこと**と、**合成違反プローブで「生きている予防」を証明できること**だ。撤去という不可逆な操作は人がゲートし、評価の仕組み自体は軽く保つ。
 
-関連: [ハーネスへの投資をどう考えるか](harness-investment.md) / [ハーネスエンジニアリングで学んだこと](harness-engineering.md) / [ミューテーションテストで学んだこと](mutation-testing.md)
+関連: [ハーネスへの投資をどう考えるか](harness-investment.md) / [ハーネスエンジニアリングで学んだこと](harness-engineering.md) / [ミューテーションテストで学んだこと](mutation-testing.md) / [モデル検査を設計段階のハーネスにする](model-checking-design-harness.md)

@@ -132,4 +132,4 @@ flowchart LR
 
 入れた後に各層を評価して続ける/やめるを判断する話は [ハーネス層の有効性評価とライフサイクル](harness-effectiveness-review.md) に分けた。
 
-関連: [ハーネスエンジニアリングで学んだこと](harness-engineering.md) / [ミューテーションテストで学んだこと](mutation-testing.md)
+関連: [ハーネスエンジニアリングで学んだこと](harness-engineering.md) / [ミューテーションテストで学んだこと](mutation-testing.md) / [モデル検査を設計段階のハーネスにする](model-checking-design-harness.md)
