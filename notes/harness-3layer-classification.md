@@ -4,7 +4,7 @@
 
 localmd-reader の70ハーネス構成要素を他プロジェクトへ移植するにあたり、そのまま使えるもの・技術スタック選択後に使えるもの・各プロジェクトで定義し直すものを明確に分ける3層モデルを採用した。特にプロジェクト固有設定を "kit に実値を置かない" 構造にすることで、自動同期が固有設定を踏み潰さない保証を得る。
 
-> 一次資料: [ハーネス移植性アーキテクチャ設計書](https://github.com/Yos-K/multi-agent-shogun/blob/main/docs/harness-portability/design.md) / harness-kit（裁可待ち）
+> 一次資料: ハーネス移植性アーキテクチャ設計書（非公開）/ harness-kit（公開準備中）
 
 ---
 
@@ -119,7 +119,7 @@ flowchart LR
 
 ## 参照
 
-- [ハーネス移植性アーキテクチャ設計書](https://github.com/Yos-K/multi-agent-shogun/blob/main/docs/harness-portability/design.md) — 3層モデル定義・インストーラ設計・同期機構設計
+- ハーネス移植性アーキテクチャ設計書（非公開）— 3層モデル定義・インストーラ設計・同期機構設計
 - [ハーネスエンジニアリングで学んだこと](./harness-engineering.md) — ハーネスの概念と層構造
 - [ハーネスへの投資をどう考えるか](./harness-investment.md) — プロファイル選択の根拠（minimal/standard/full）
 - [harness-kit v0.1.0 リリース](./harness-release.md) — showcase: v0.1.0 公開の記録

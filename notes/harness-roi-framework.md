@@ -112,7 +112,7 @@ failure_impact: low | high     # 課金・個人情報の有無等
 ## localmd-reader での初回評価結果（2026年6月）
 
 **対象**: localmd-reader（Android学習目的PJ）の CI/CDハーネス全17層。
-**評価実施**: 軍師 / subtask_004e
+**評価実施**: 独立レビュー担当（2026-06-07）
 
 | 区分 | 件数 |
 |---|---|
@@ -131,7 +131,7 @@ failure_impact: low | high     # 課金・個人情報の有無等
 
 **C-7 投資判断 → 縮小導入（2026-06-07）**: ROIフレームワーク初の実戦適用で3点が確定。
 - ①縮小導入: uiautomator dump方式の領域限定比較（`scripts/visual-regression-check-limited.sh`）
-- ②flaky先行: theme-screenshots flaky解消（cmd_024/PR #134）を先行
+- ②flaky先行: theme-screenshots flaky解消（PR #134）を先行
 - ③フル比較見送り: ROI不成立（発火実績乏しい・コスト高・影響半径小）
 
 **詳細**: localmd-readerのdocs/harness/harness-roi-evaluation-2026-06.md を参照。

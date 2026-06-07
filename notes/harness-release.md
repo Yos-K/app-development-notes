@@ -58,4 +58,4 @@ flowchart LR
 - [harness-kit GitHub リポジトリ](https://github.com/Yos-K/harness-kit)
 - [v0.1.0 GitHub Release](https://github.com/Yos-K/harness-kit/releases/tag/v0.1.0)
 - [ハーネス3層分類の設計](./harness-3layer-classification.md) — 3層モデルの詳細
-- [ハーネス移植性アーキテクチャ設計書](https://github.com/Yos-K/multi-agent-shogun/blob/main/docs/harness-portability/design.md) — 設計書
+- ハーネス移植性アーキテクチャ設計書（非公開）— 設計書
