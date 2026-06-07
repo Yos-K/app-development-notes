@@ -235,4 +235,5 @@ flowchart TD
 - [AGENTS.md にハーネスとして何を書くべきか](notes/agents-md-as-harness.md)
 - [潜在バグの考古学 — 一つのUI変更が掘り起こした3つのバグ](notes/latent-bugs-archaeology.md)
 - [ドメイン知識深化ループ — 暗黙知を検査可能な仕様に変える](notes/domain-knowledge-loop.md)
+- [harness-kit v0.1.0 — ハーネス抽出リポジトリの初回リリース記録](notes/harness-release.md)
 

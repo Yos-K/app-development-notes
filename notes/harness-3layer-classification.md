@@ -107,9 +107,19 @@ flowchart LR
 
 ---
 
+## v0.1.0 リリース記録
+
+2026-06-07 に [harness-kit v0.1.0](https://github.com/Yos-K/harness-kit/releases/tag/v0.1.0) を公開した。
+
+設計段階から維持してきた3層モデル（core/adapters/templates）、ホワイトリストベースの sync-manifest、シークレットスキャンゲートがすべて初回リリースに含まれた。なぜ→だからの観点から: 「managed_files に src/**・harness-config.yaml・profiles/ を列挙すると消費側の固有設定を上書きする危険がある。だから CONTRIBUTING.md に規約として明文化し、スキーマレベルの検証を v0.2 ロードマップに積んだ。」
+
+リリースの正直な限界: スキーマレベルの managed_files 禁止はまだ未実装（v0.2 予定）。規約に依存しているため、手動ミスによる違反を構造的に阻止はできていない。
+
+---
+
 ## 参照
 
 - [ハーネス移植性アーキテクチャ設計書](https://github.com/Yos-K/multi-agent-shogun/blob/main/docs/harness-portability/design.md) — 3層モデル定義・インストーラ設計・同期機構設計
 - [ハーネスエンジニアリングで学んだこと](./harness-engineering.md) — ハーネスの概念と層構造
 - [ハーネスへの投資をどう考えるか](./harness-investment.md) — プロファイル選択の根拠（minimal/standard/full）
-- harness-kit（裁可待ち）— 抽出先リポジトリ（公開/非公開・名前・バージョニングは殿の裁可事項）
+- [harness-kit v0.1.0 リリース](./harness-release.md) — showcase: v0.1.0 公開の記録
