@@ -129,6 +129,11 @@ failure_impact: low | high     # 課金・個人情報の有無等
 2. **フレームワークは過剰投資と穴の両面を見る**: removal-candidate候補なし（過剰なし）＋ Thread.sleepギャップ発見（穴あり）の両方を同一手順で検出。
 3. **要注意信号の早期検知**: theme-screenshots の失敗率27.8%はflaky判定の閾値に近い。flaky放置は「誰も赤を見なくなる」劣化の入口。
 
+**C-7 投資判断 → 縮小導入（2026-06-07）**: ROIフレームワーク初の実戦適用で3点が確定。
+- ①縮小導入: uiautomator dump方式の領域限定比較（`scripts/visual-regression-check-limited.sh`）
+- ②flaky先行: theme-screenshots flaky解消（cmd_024/PR #134）を先行
+- ③フル比較見送り: ROI不成立（発火実績乏しい・コスト高・影響半径小）
+
 **詳細**: localmd-readerのdocs/harness/harness-roi-evaluation-2026-06.md を参照。
 
 ## 評価手順サマリ

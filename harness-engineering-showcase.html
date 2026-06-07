@@ -111,6 +111,60 @@
   </ul>
 </div>
 
+<h2 id="cmd-025">cmd_025 — ROIフレームワーク初実戦適用 → 縮小導入決断</h2>
+<div class="cmd">
+  <span class="cmd-id">cmd_025 / 2026-06-07</span>
+  <h3>問い</h3>
+  <p>軍師のROI評価（cmd_020/020b）でtheme-screenshotsがstrengthen判定を受けた。視覚退行検知への投資はROIに見合うか。見合わないなら何を縮小するか。</p>
+
+  <h3>C-7 裁可3点（ROI評価→投資判断→縮小導入の一連）</h3>
+  <table class="verdict-table">
+    <tr><th>裁可</th><th>決定内容</th><th>根拠</th></tr>
+    <tr>
+      <td>①縮小導入</td>
+      <td>uiautomator dump方式の領域限定比較を実装</td>
+      <td>低コスト・ピクセル依存なし・flaky土台に偽陽性を積まない</td>
+    </tr>
+    <tr>
+      <td>②flaky先行</td>
+      <td>theme-screenshots flaky 27.8%→0% 解消（cmd_024）を先行</td>
+      <td>不安定な土台に視覚アサートを積むと偽陽性増大→「誰も赤を見なくなる」劣化</td>
+    </tr>
+    <tr>
+      <td>③見送り</td>
+      <td>Roborazzi/SSIM/ピクセル一致は当面見送り</td>
+      <td>ROI不成立（PR #126でも基準画像0枚変更・発火見込み乏しい・コスト高・影響半径小）</td>
+    </tr>
+  </table>
+
+  <h3>Key Findings</h3>
+  <div class="finding">
+    <strong>ROIフレームワークの初実戦適用</strong><br>
+    軍師がROIフレームワーク（cmd_004成果）を使い、フル視覚比較ゲートの導入可否を評価（subtask_020b）。評価結果が3択（導入/縮小/見送り）の判断根拠となり、殿の裁可につながった。フレームワークが実際の投資判断を動かした最初の事例。
+  </div>
+  <div class="finding">
+    <strong>「土台のflakyを直してからゲートを足す」の徹底</strong><br>
+    theme-screenshotsのflaky率27.8%という既存問題の上に新しいアサートを追加すると偽陽性が積み重なり、信頼性が崩壊する。順序の規律（②先行→①縮小導入）をROI評価の段階で明示したことで、実装順が正しく決まった。
+  </div>
+  <div class="finding">
+    <strong>縮小導入の検知能力証明</strong><br>
+    <code>scripts/visual-regression-check-limited.sh</code> 末尾に <code>vr-check-nonexistent</code> 非存在の負のアサートを含む。「アサートがno-opでないこと」をスクリプト自身が証明する構造（smoke-render-assert-l5.sh と同流儀）。
+  </div>
+
+  <h3>再利用可能な知識</h3>
+  <ul>
+    <li><strong>新しいアサートを追加する前に既存の不安定を解消せよ</strong> — 不安定な土台に積み上げると偽陽性が連鎖する</li>
+    <li><strong>ROI評価の「反事実見込み」で新規層を評価する</strong> — 過去のPRが新層で捕まったかを問うことで発火実績のない層を正当評価できる</li>
+    <li><strong>縮小導入でも「検知能力証明」を必ず含める</strong> — アサートがno-opでないことを負のテストで示す</li>
+  </ul>
+
+  <h3>参照リンク</h3>
+  <ul>
+    <li><a href="https://github.com/Yos-K/localmd-reader/blob/main/scripts/visual-regression-check-limited.sh">縮小導入スクリプト: visual-regression-check-limited.sh</a></li>
+    <li><a href="https://github.com/Yos-K/localmd-reader/blob/main/docs/harness/harness-roi-evaluation-2026-06.md">ROI評価レポート（C-7裁可3点の記録）</a></li>
+  </ul>
+</div>
+
 <footer>
   <p>このShowcaseは <a href="https://github.com/Yos-K/app-development-notes">app-development-notes</a> の一部です。</p>
 </footer>
