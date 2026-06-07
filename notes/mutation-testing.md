@@ -176,4 +176,48 @@ flowchart TD
 - **floor は網羅の証明ではない**。「80% を超えた」は「壊しても気づけない箇所が 2 割ある」とも読める。スコアは万能の品質指標ではなく、検出力の一つの近似にすぎない。
 - **多層防御が効いている領域**は、ミューテーション上 survive していても危険度が低いことがある。スコアの数字だけで優先順位を決めず、その mutant が現実にどう害になるかで判断する。
 
+## テストの形式が計測を壊す: main() 形式テストの落とし穴
+
+JUnit 5 で計測する場合、**テストメソッドの形式**が計測精度に直結する。
+
+```mermaid
+flowchart TD
+    MainForm["main() 形式テスト<br/>public static void main(String[] args)"]
+    TestForm["@Test 形式テスト<br/>@Test void shouldXxx()"]
+    MainForm -->|JUnit 5 ランナーが認識しない| FakeNoCov["偽 NO_COVERAGE<br/>(クラス全体が未カバー扱い)"]
+    TestForm -->|ランナーが実行する| RealCov["実計測<br/>KILLED / SURVIVED が正しく出る"]
+```
+
+`main()` 形式でアサートを書くスタイルは、IDE から直接実行する「手軽な動作確認」として書かれることがある。しかし JUnit 5 のテストランナー (`@ExtendWith` や Surefire) はこれをテストとして認識しない。その結果、クラスを呼び出すテストが存在しないとみなされ、そのクラスの mutant が全て **偽 NO_COVERAGE** として報告される。
+
+### 実例
+
+```java
+// これは JUnit 5 ランナーに認識されない → クラス全体が偽 NO_COVERAGE になる
+public class MarkdownHeadingsTest {
+    public static void main(String[] args) {
+        var result = MarkdownHeadings.parse("# hello");
+        assert result.size() == 1;
+    }
+}
+```
+
+```java
+// これは認識される → KILLED / SURVIVED として正しく計測される
+class MarkdownHeadingsTest {
+    @Test
+    void singleHeading() {
+        var result = MarkdownHeadings.parse("# hello");
+        assertThat(result).hasSize(1);
+    }
+}
+```
+
+### 対策
+
+- スコアの低下原因を調べるとき、**NO_COVERAGE が集中しているクラスのテストファイルを開いて形式を確認する**。`@Test` アノテーションがないテストメソッドがあれば偽 NO_COVERAGE の犯人。
+- 新しくテストを書くときは `@Test` 形式を徹底する。`main()` 形式の既存テストを見つけたら変換する。
+
+この問題は「テストはある・カバレッジも高い・でも NO_COVERAGE が減らない」という症状で現れる。計測結果が予想と合わないときの診断ポイントの一つとして覚えておくと良い。
+
 関連: [ハーネスエンジニアリングで学んだこと](harness-engineering.md) / [性質ベーステスト (PBT) で学んだこと](property-based-testing.md)
