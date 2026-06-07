@@ -140,3 +140,4 @@ flowchart TD
 - [ハーネスへの投資をどう考えるか](harness-investment.md) — 過剰投資の回避。L2/L3 限定はこの原則の適用
 - [ハーネス層の有効性評価とライフサイクル](harness-effectiveness-review.md) — 助言的導入と発火実績による昇格判断
 - [性質ベーステスト (PBT) で学んだこと](property-based-testing.md) — リンク2（仕様→実装の忠実性）を守る側
+- [値オブジェクトの永続化写像を Alloy で形式化する](alloy-model-value-object.md) — 本ノートの手法を純粋静的な値オブジェクトに適用したケース（動的検査が不要な場合の判断）
