@@ -229,6 +229,7 @@ flowchart TD
 - [ハーネスへの投資をどう考えるか](notes/harness-investment.md)
 - [ハーネス層の有効性評価とライフサイクル](notes/harness-effectiveness-review.md)
 - [ハーネスの自己修正ループ — 弱点はどう見つかり、どう塞がれたか](notes/harness-self-correction.md)
+- [ハーネス3層分類の設計 — 汎用コア・スタック別アダプタ・プロジェクト固有設定の分け方](notes/harness-3layer-classification.md)
 - [モデル検査を設計段階のハーネスにする](notes/model-checking-design-harness.md)
 - [値オブジェクトの永続化写像を Alloy で形式化する](notes/alloy-model-value-object.md)
 - [AGENTS.md にハーネスとして何を書くべきか](notes/agents-md-as-harness.md)
