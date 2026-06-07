@@ -234,4 +234,5 @@ flowchart TD
 - [値オブジェクトの永続化写像を Alloy で形式化する](notes/alloy-model-value-object.md)
 - [AGENTS.md にハーネスとして何を書くべきか](notes/agents-md-as-harness.md)
 - [潜在バグの考古学 — 一つのUI変更が掘り起こした3つのバグ](notes/latent-bugs-archaeology.md)
+- [ドメイン知識深化ループ — 暗黙知を検査可能な仕様に変える](notes/domain-knowledge-loop.md)
 
