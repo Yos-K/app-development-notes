@@ -237,4 +237,6 @@ flowchart TD
 - [潜在バグの考古学 — 一つのUI変更が掘り起こした3つのバグ](notes/latent-bugs-archaeology.md)
 - [ドメイン知識深化ループ — 暗黙知を検査可能な仕様に変える](notes/domain-knowledge-loop.md)
 - [harness-kit v0.1.0 — ハーネス抽出リポジトリの初回リリース記録](notes/harness-release.md)
+- [探索テストを継続ループにする — AIエージェントのドメイン知識獲得](notes/exploration-loop.md)
+- [AI改修コストをコード品質で測る — 偶有的複雑性の代理指標と結合の三角測量](notes/code-quality-metrics-for-ai.md)
 
