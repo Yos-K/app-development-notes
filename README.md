@@ -241,4 +241,5 @@ flowchart TD
 - [探索テストを継続ループにする — AIエージェントのドメイン知識獲得](notes/exploration-loop.md)
 - [AI改修コストをコード品質で測る — 偶有的複雑性の代理指標と結合の三角測量](notes/code-quality-metrics-for-ai.md)
 - [決定的ゲートで囲うエージェント収束ループ — 「統率」と「判断」の境界](notes/deterministic-gate-agent-loop.md)
+- [本番リポでハーネスを消費する — 安全な移行はバイト同一性から始める](notes/consuming-harness-in-production.md)
 
